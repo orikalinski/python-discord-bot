@@ -2,8 +2,8 @@ class Message(object):
     def __init__(self, id, channel_id, author, content, type, embeds, attachments, components, flags, mention_everyone,
                  mention_roles, mentions, timestamp, pinned, tts, edited_timestamp=None, message_reference=None,
                  referenced_message=None, **kwargs):
-        self.id = id
-        self.channel_id = channel_id
+        self.id = int(id)
+        self.channel_id = int(channel_id)
         self.author = author
         self.content = content
         self.type = type

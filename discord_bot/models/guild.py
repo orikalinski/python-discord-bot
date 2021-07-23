@@ -8,7 +8,7 @@ class Guild(object):
                  roles=None, rules_channel_id=None, splash=None, stickers=None, system_channel_flags=None,
                  system_channel_id=None, vanity_url_code=None, verification_level=None, widget_channel_id=None,
                  widget_enabled=None, **kwargs):
-        self.id = id
+        self.id = int(id)
         self.name = name
         self.nsfw = nsfw
         self.topic = topic

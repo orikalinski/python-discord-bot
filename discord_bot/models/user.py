@@ -1,6 +1,6 @@
 class User(object):
     def __init__(self, id, username, discriminator, banner, banner_color, public_flags, bio, **kwargs):
-        self.id = id
+        self.id = int(id)
         self.username = username
         self.discriminator = discriminator
         self.banner = banner
