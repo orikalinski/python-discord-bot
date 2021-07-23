@@ -1,8 +1,6 @@
-from discord_bot.common.endpoints import BASE_URL, GET_CHANNEL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, \
-    CHANNEL_MESSAGE, CHANNEL_MESSAGES
+from discord_bot.common.endpoints import BASE_URL, GET_CHANNEL, CHANNEL_MESSAGE, CHANNEL_MESSAGES
 from discord_bot.common.request import Request
 from discord_bot.models.channel import Channel
-from discord_bot.models.guild import Guild
 from discord_bot.models.message import Message
 from discord_bot.models.user import User
 
@@ -15,22 +13,6 @@ class ChannelAPI(object):
         url = BASE_URL + GET_CHANNEL.format(channel_id)
         payload = Request(self.token, method="GET", url=url).execute()
         return Channel(**payload)
-
-    def get_guild(self, guild_id):
-        url = BASE_URL + GET_GUILD.format(guild_id)
-        request = Request(self.token, url, "GET")
-        payload = request.execute()
-        return Guild(**payload)
-
-    def get_guild_preview(self, guild_id):
-        url = BASE_URL + GET_GUILD_PREVIEW.format(guild_id)
-        request = Request(self.token, url, "GET")
-        payload = request.execute()
-        return Guild(**payload)
-
-    @staticmethod
-    def get_guild_icon_url(guild_id, icon_hash):
-        return GUILD_ICON.format(guild_id, icon_hash)
 
     def _parse_message(self, message_payload):
         message_payload["author"] = User(**message_payload["author"])

@@ -14,6 +14,10 @@ class Request(object):
         json_data = {}
         if response.content:
             json_data = response.json()
+        if "code" in json_data and "message" in json_data:
+            message = json_data["message"]
+            code = json_data["code"]
+            raise Exception(f"{code}: {message}")
         return json_data
 
     def execute(self):
