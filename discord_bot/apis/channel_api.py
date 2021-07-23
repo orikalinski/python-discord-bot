@@ -1,10 +1,10 @@
-from common.endpoints import BASE_URL, GET_CHANNEL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, CHANNEL_MESSAGE, \
+from discord_bot.common import BASE_URL, GET_CHANNEL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, CHANNEL_MESSAGE, \
     CHANNEL_MESSAGES
-from common.request import Request
-from models.channel import Channel
-from models.guild import Guild
-from models.message import Message
-from models.user import User
+from discord_bot.common import Request
+from discord_bot.models.channel import Channel
+from discord_bot.models.guild import Guild
+from discord_bot.models.message import Message
+from discord_bot.models.user import User
 
 
 class ChannelAPI(object):
