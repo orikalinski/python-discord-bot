@@ -1,0 +1,4 @@
+*.pyc
+.idea/
+python_discord_bot.egg-info/
+venv/
