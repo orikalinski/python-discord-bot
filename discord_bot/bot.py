@@ -38,8 +38,8 @@ class Bot(object):
     def delete_message(self, channel_id, message_id):
         return self.channel_api.delete_message(channel_id, message_id)
 
-    def send_message(self, channel_id, content, menu=None):
-        return self.channel_api.send_message(channel_id, content, menu=menu)
+    def send_message(self, channel_id, content, menu=None, reply_to_message_id=None):
+        return self.channel_api.send_message(channel_id, content, menu=menu, reply_to_message_id=reply_to_message_id)
 
     def edit_message(self, channel_id, message_id, content, menu=None):
         return self.channel_api.edit_message(channel_id, message_id, content, menu=menu)
