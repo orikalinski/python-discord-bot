@@ -41,11 +41,13 @@ class ChannelAPI(object):
         request = Request(self.token, url, "DELETE")
         return request.execute()
 
-    def send_message(self, channel_id, content, menu=None):
+    def send_message(self, channel_id, content, menu=None, reply_to_message_id=None):
         url = BASE_URL + CHANNEL_MESSAGES.format(channel_id)
         json_data = {"content": content}
         if menu:
             json_data["components"] = menu.to_components()
+        if reply_to_message_id:
+            json_data["message_reference"] = {"message_id": reply_to_message_id}
         request = Request(self.token, url, "POST", json_data=json_data)
         return request.execute()
 
