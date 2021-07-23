@@ -23,6 +23,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=package['homepage'],
+    packages=['discord_bot'],
     python_requires=">=3.6",
     include_package_data=True,
     exclude=("__pycache__",),

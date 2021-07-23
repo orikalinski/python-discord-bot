@@ -1,7 +1,7 @@
-from apis.channel_api import ChannelAPI
-from apis.user_api import UserAPI
-from models.button import Button
-from models.menu import Menu
+from discord_bot.apis.channel_api import ChannelAPI
+from discord_bot.apis.user_api import UserAPI
+from discord_bot.models.button import Button
+from discord_bot.models.menu import Menu
 
 
 class Bot(object):

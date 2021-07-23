@@ -1,6 +1,6 @@
-from discord_bot.common import BASE_URL, GET_CHANNEL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, CHANNEL_MESSAGE, \
-    CHANNEL_MESSAGES
-from discord_bot.common import Request
+from discord_bot.common.endpoints import BASE_URL, GET_CHANNEL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, \
+    CHANNEL_MESSAGE, CHANNEL_MESSAGES
+from discord_bot.common.request import Request
 from discord_bot.models.channel import Channel
 from discord_bot.models.guild import Guild
 from discord_bot.models.message import Message

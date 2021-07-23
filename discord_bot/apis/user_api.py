@@ -1,5 +1,5 @@
-from discord_bot.common import BASE_URL, GET_ME, GET_USER
-from discord_bot.common import Request
+from discord_bot.common.endpoints import BASE_URL, GET_ME, GET_USER
+from discord_bot.common.request import Request
 from discord_bot.models.user import User
 
 
