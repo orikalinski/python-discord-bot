@@ -61,3 +61,9 @@ class Bot(object):
             if user_id == guild_owner_id or member.roles:
                 admins.append(member)
         return admins
+
+    def search_guild_members(self, guild_id, query):
+        return self.guild_api.search_guild_members(guild_id, query)
+
+    def get_guild_member(self, guild_id, user_id):
+        return self.guild_api.get_guild_member(guild_id, user_id)

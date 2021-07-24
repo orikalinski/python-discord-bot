@@ -1,5 +1,5 @@
 from discord_bot.common.endpoints import BASE_URL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, GET_GUILD_ROLES, \
-    GET_GUILD_MEMBERS
+    GET_GUILD_MEMBERS, GET_GUILD_MEMBERS_SEARCH, GET_GUILD_MEMBER
 from discord_bot.common.request import Request
 from discord_bot.models.guild import Guild
 from discord_bot.models.member import Member
@@ -58,6 +58,12 @@ class GuildAPI(object):
             members.append(self._parse_member(member_payload))
         return members
 
+    def get_guild_member(self, guild_id, user_id):
+        url = BASE_URL + GET_GUILD_MEMBER.format(guild_id, user_id)
+        request = Request(self.token, url, "GET")
+        member_payload = request.execute()
+        return self._parse_member(member_payload)
+
     def get_guild_members(self, guild_id, force_all=False):
         url = BASE_URL + GET_GUILD_MEMBERS.format(guild_id)
         limit = 1000
@@ -69,3 +75,12 @@ class GuildAPI(object):
             users.extend(current_batch)
 
         return users
+
+    def search_guild_members(self, guild_id, query):
+        url = BASE_URL + GET_GUILD_MEMBERS_SEARCH.format(guild_id) + f"?query={query}"
+        request = Request(self.token, url, "GET")
+        payload = request.execute()
+        members = list()
+        for member_payload in payload:
+            members.append(self._parse_member(member_payload))
+        return members

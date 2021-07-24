@@ -1,5 +1,6 @@
 class Member(object):
-    def __init__(self, user, roles, nick, avatar, premium_since, joined_at, is_pending, pending, mute, deaf, **kwargs):
+    def __init__(self, user, roles, joined_at, mute, deaf, nick=None, avatar=None, premium_since=None, pending=None,
+                 is_pending=None, **kwargs):
         self.user = user
         self.roles = roles
         self.nick = nick
