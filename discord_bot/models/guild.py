@@ -31,7 +31,7 @@ class Guild(object):
         self.max_video_channel_users = max_video_channel_users
         self.mfa_level = mfa_level
         self.nsfw_level = nsfw_level
-        self.owner_id = int(owner_id)
+        self.owner_id = int(owner_id) if owner_id is not None else owner_id
         self.preferred_locale = preferred_locale
         self.premium_subscription_count = premium_subscription_count
         self.premium_tier = premium_tier
