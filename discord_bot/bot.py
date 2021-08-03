@@ -1,6 +1,7 @@
 from discord_bot.apis.channel_api import ChannelAPI
 from discord_bot.apis.guild_api import GuildAPI
 from discord_bot.apis.user_api import UserAPI
+from discord_bot.common.permissions import has_permission, MANAGE_MESSAGES_PERMISSION, ADMINISTRATOR_PERMISSION
 
 
 class Bot(object):
@@ -50,15 +51,27 @@ class Bot(object):
     def get_guild_members(self, guild_id, force_all=False):
         return self.guild_api.get_guild_members(guild_id, force_all=force_all)
 
+    @staticmethod
+    def _has_manage_messages_permission(user_roles, guild_roles):
+        for user_role_id in user_roles:
+            role = guild_roles.get(int(user_role_id))
+            if role:
+                permissions = int(role.permissions)
+                if any(has_permission(permissions, permission) for permission in [ADMINISTRATOR_PERMISSION,
+                                                                                  MANAGE_MESSAGES_PERMISSION]):
+                    return True
+        return False
+
     def get_guild_admins(self, guild_id, members=None):
         guild = self.guild_api.get_guild(guild_id)
         guild_owner_id = guild.owner_id
         guild_members = self.get_guild_members(guild_id, force_all=True) if members is None else members
+        guild_roles = {role.id: role for role in self.get_guild_roles(guild_id)}
         admins = list()
         for member in guild_members:
             user = member.user
             user_id = user.id
-            if user_id == guild_owner_id or member.roles:
+            if user_id == guild_owner_id or self._has_manage_messages_permission(member.roles, guild_roles):
                 admins.append(member)
         return admins
 
