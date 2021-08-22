@@ -1,4 +1,5 @@
 import requests
+from exceptions import CODE_TO_EXCEPTION
 
 
 class Request(object):
@@ -17,7 +18,11 @@ class Request(object):
         if "code" in json_data and "message" in json_data:
             message = json_data["message"]
             code = json_data["code"]
-            raise Exception(f"{code}: {message}")
+            exception = CODE_TO_EXCEPTION.get(code)
+            if exception:
+                raise exception(f"{code}: {message}")
+            else:
+                raise Exception(f"{code}: {message}")
         return json_data
 
     def execute(self):
