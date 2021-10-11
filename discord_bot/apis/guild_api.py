@@ -64,14 +64,14 @@ class GuildAPI(object):
         member_payload = request.execute()
         return self._parse_member(member_payload)
 
-    def get_guild_members(self, guild_id, force_all=False):
+    def get_guild_members(self, guild_id, limit=1000):
         url = BASE_URL + GET_GUILD_MEMBERS.format(guild_id)
-        limit = 1000
-        users = current_batch = self._get_guild_members_batch(url, limit=limit)
-        while force_all and len(current_batch) >= limit:
+        fetch_limit = 1000
+        users = current_batch = self._get_guild_members_batch(url, limit=fetch_limit)
+        while len(current_batch) >= fetch_limit and (not limit or len(users) < limit):
             last_user = current_batch[-1]
             last_user_id = last_user.user.id
-            current_batch = self._get_guild_members_batch(url, last_user_id=last_user_id, limit=limit)
+            current_batch = self._get_guild_members_batch(url, last_user_id=last_user_id, limit=fetch_limit)
             users.extend(current_batch)
 
         return users

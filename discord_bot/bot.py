@@ -48,8 +48,8 @@ class Bot(object):
     def get_guild_roles(self, guild_id):
         return self.guild_api.get_guild_roles(guild_id)
 
-    def get_guild_members(self, guild_id, force_all=False):
-        return self.guild_api.get_guild_members(guild_id, force_all=force_all)
+    def get_guild_members(self, guild_id, limit=1000):
+        return self.guild_api.get_guild_members(guild_id, limit=limit)
 
     @staticmethod
     def _has_manage_messages_permission(user_roles, guild_roles):
@@ -65,7 +65,7 @@ class Bot(object):
     def get_guild_admins(self, guild_id, members=None):
         guild = self.guild_api.get_guild(guild_id)
         guild_owner_id = guild.owner_id
-        guild_members = self.get_guild_members(guild_id, force_all=True) if members is None else members
+        guild_members = self.get_guild_members(guild_id, limit=None) if members is None else members
         guild_roles = {role.id: role for role in self.get_guild_roles(guild_id)}
         admins = list()
         for member in guild_members:
