@@ -50,7 +50,8 @@ class GuildAPI(object):
         if last_user_id:
             url += "?" + f"after={last_user_id}"
         if limit:
-            url += "?" + f"limit={limit}"
+            separator = "&" if last_user_id else "?"
+            url += separator + f"limit={limit}"
         request = Request(self.token, url, "GET")
         payload = request.execute()
         members = list()
