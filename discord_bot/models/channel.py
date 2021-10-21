@@ -1,3 +1,6 @@
+from discord_bot.models.permission_override import PermissionOverride
+
+
 class Channel(object):
     def __init__(self, id, guild_id, name, last_message_id, nsfw, parent_id, type, position, permission_overwrites,
                  topic=None, rate_limit_per_user=None, **kwargs):
@@ -9,7 +12,8 @@ class Channel(object):
         self.parent_id = parent_id
         self.type = type
         self.position = position
-        self.permission_overwrites = permission_overwrites
+        self.permission_overwrites = [PermissionOverride(**permission_override)
+                                      for permission_override in permission_overwrites]
         self.topic = topic
         self.rate_limit_per_user = rate_limit_per_user
 
