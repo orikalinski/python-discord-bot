@@ -1,3 +1,6 @@
+from discord_bot.models.role import Role
+
+
 class Guild(object):
     def __init__(self, id, name, nsfw=None, topic=None, approximate_member_count=None, approximate_presence_count=None,
                  rate_limit_per_user=None, afk_channel_id=None, afk_timeout=None, application_id=None, banner=None,
@@ -37,7 +40,8 @@ class Guild(object):
         self.premium_tier = premium_tier
         self.public_updates_channel_id = public_updates_channel_id
         self.region = region
-        self.roles = roles
+        self.roles = [Role(**role) for role in roles]
+
         self.rules_channel_id = rules_channel_id
         self.splash = splash
         self.stickers = stickers
