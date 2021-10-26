@@ -68,14 +68,17 @@ class GuildAPI(object):
     def get_guild_members_iter(self, guild_id, limit=1000):
         url = BASE_URL + GET_GUILD_MEMBERS.format(guild_id)
         fetch_limit = 1000
-        users = current_batch = self._get_guild_members_batch(url, limit=fetch_limit)
-        while len(current_batch) >= fetch_limit and (not limit or len(users) < limit):
+        counter = 0
+        current_batch = self._get_guild_members_batch(url, limit=fetch_limit)
+        while len(current_batch) == fetch_limit and (not limit or counter < limit):
             last_user = current_batch[-1]
             last_user_id = last_user.user.id
             current_batch = self._get_guild_members_batch(url, last_user_id=last_user_id, limit=fetch_limit)
-            for user in users:
+            for user in current_batch:
+                counter += 1
                 yield user
 
+    # deprecated
     def get_guild_members(self, guild_id, limit=1000):
         url = BASE_URL + GET_GUILD_MEMBERS.format(guild_id)
         fetch_limit = 1000
