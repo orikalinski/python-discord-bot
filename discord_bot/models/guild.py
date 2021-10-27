@@ -40,7 +40,7 @@ class Guild(object):
         self.premium_tier = premium_tier
         self.public_updates_channel_id = public_updates_channel_id
         self.region = region
-        self.roles = [Role(**role) for role in roles]
+        self.roles = [Role(**role) for role in roles] if roles else list()
 
         self.rules_channel_id = rules_channel_id
         self.splash = splash

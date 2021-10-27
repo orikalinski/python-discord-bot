@@ -65,7 +65,7 @@ class GuildAPI(object):
         member_payload = request.execute()
         return self._parse_member(member_payload)
 
-    def get_guild_members_iter(self, guild_id, limit=1000):
+    def get_guild_members_iter(self, guild_id):
         url = BASE_URL + GET_GUILD_MEMBERS.format(guild_id)
         fetch_limit = 1000
         counter = 0

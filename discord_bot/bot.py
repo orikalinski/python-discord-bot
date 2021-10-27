@@ -48,8 +48,8 @@ class Bot(object):
     def get_guild_roles(self, guild_id):
         return self.guild_api.get_guild_roles(guild_id)
 
-    def get_guild_members_iter(self, guild, limit=1000):
-        yield self.guild_api.get_guild_members_iter(guild, limit=limit)
+    def get_guild_members_iter(self, guild):
+        return self.guild_api.get_guild_members_iter(guild)
 
     def get_guild_members(self, guild_id, limit=1000):
         return self.guild_api.get_guild_members(guild_id, limit=limit)
