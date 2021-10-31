@@ -9,7 +9,7 @@ from discord_bot.common.exceptions import TooManyRequests
 logger = logging.getLogger(__name__)
 
 
-def check_if_connection_exception(exception):
+def check_exception(exception):
     if isinstance(exception, TimeoutError):
         return True
     if isinstance(exception, TooManyRequests):
@@ -21,7 +21,7 @@ def check_if_connection_exception(exception):
 
 def handle_discord_exception(method):
     @functools.wraps(method)
-    @retry(retry_on_exception=check_if_connection_exception, stop_max_attempt_number=2)
+    @retry(retry_on_exception=check_exception, stop_max_attempt_number=2)
     def wrapper(*args, **kwargs):
         return method(*args, **kwargs)
 
