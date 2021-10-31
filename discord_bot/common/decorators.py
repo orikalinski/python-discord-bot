@@ -17,6 +17,7 @@ def check_exception(exception):
         logger.info("Got TooManyRequests on url: %s, will retry in %s secs", exception.url, retry_after)
         sleep(retry_after)
         return True
+    return False
 
 
 def handle_discord_exception(method):
