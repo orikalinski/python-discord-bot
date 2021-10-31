@@ -1,3 +1,4 @@
+from discord_bot.common.decorators import wrap_all_class_methods, handle_discord_exception
 from discord_bot.common.endpoints import BASE_URL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, GET_GUILD_ROLES, \
     GET_GUILD_MEMBERS, GET_GUILD_MEMBERS_SEARCH, GET_GUILD_MEMBER
 from discord_bot.common.request import Request
@@ -7,6 +8,7 @@ from discord_bot.models.role import Role
 from discord_bot.models.user import User
 
 
+@wrap_all_class_methods(handle_discord_exception)
 class GuildAPI(object):
     def __init__(self, token):
         self.token = token
@@ -65,6 +67,20 @@ class GuildAPI(object):
         member_payload = request.execute()
         return self._parse_member(member_payload)
 
+    def get_guild_members_iter(self, guild_id):
+        url = BASE_URL + GET_GUILD_MEMBERS.format(guild_id)
+        fetch_limit = 1000
+        current_batch = self._get_guild_members_batch(url, limit=fetch_limit)
+        while len(current_batch) == fetch_limit:
+            last_user = current_batch[-1]
+            last_user_id = last_user.user.id
+            for user in current_batch:
+                yield user
+            current_batch = self._get_guild_members_batch(url, last_user_id=last_user_id, limit=fetch_limit)
+        for user in current_batch:
+            yield user
+
+    # deprecated
     def get_guild_members(self, guild_id, limit=1000):
         url = BASE_URL + GET_GUILD_MEMBERS.format(guild_id)
         fetch_limit = 1000
