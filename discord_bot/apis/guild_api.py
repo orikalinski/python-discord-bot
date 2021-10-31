@@ -1,3 +1,4 @@
+from discord_bot.common.decorators import wrap_all_class_methods, handle_discord_exception
 from discord_bot.common.endpoints import BASE_URL, GET_GUILD, GET_GUILD_PREVIEW, GUILD_ICON, GET_GUILD_ROLES, \
     GET_GUILD_MEMBERS, GET_GUILD_MEMBERS_SEARCH, GET_GUILD_MEMBER
 from discord_bot.common.request import Request
@@ -7,6 +8,7 @@ from discord_bot.models.role import Role
 from discord_bot.models.user import User
 
 
+@wrap_all_class_methods(handle_discord_exception)
 class GuildAPI(object):
     def __init__(self, token):
         self.token = token

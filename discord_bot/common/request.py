@@ -1,5 +1,7 @@
 import requests
 
+from discord_bot.common.exceptions import TooManyRequests
+
 
 class Request(object):
     def __init__(self, token, url, method, json_data=None, headers=None):
@@ -25,5 +27,7 @@ class Request(object):
         if self.headers:
             headers.update(self.headers)
 
-        response = requests.request(method=self.method, url=self.url, headers=headers, json=self.json_data)
+        response = requests.request(method=self.method, url=self.url, headers=headers, json=self.json_data, timeout=10)
+        if response.status_code == 429:
+            raise TooManyRequests(response=response.json(), url=self.url)
         return self.get_response_data(response)
