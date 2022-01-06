@@ -29,5 +29,6 @@ class Request(object):
 
         response = requests.request(method=self.method, url=self.url, headers=headers, json=self.json_data, timeout=10)
         if response.status_code == 429:
-            raise TooManyRequests(response=response.json(), url=self.url)
+            response_json = response.json()
+            raise TooManyRequests(response_json=response_json, url=self.url)
         return self.get_response_data(response)

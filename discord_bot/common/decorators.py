@@ -14,9 +14,14 @@ def check_exception(exception):
     if isinstance(exception, TimeoutError):
         return True
     if isinstance(exception, TooManyRequests):
-        retry_after = float(exception.response["retry_after"])
-        logger.info("Got TooManyRequests on url: %s, will retry in %s secs", exception.url, retry_after)
-        sleep(retry_after)
+        retry_after = float(exception.response_json.get("retry_after"))
+        if retry_after:
+            logger.info("Got TooManyRequests on url: %s, will retry in %s secs, global: %s message: %s",
+                        exception.url, retry_after, exception.response_json.get("global"),
+                        exception.response_json.get("message"))
+            sleep(retry_after)
+        else:
+            logger.error("Got TooManyRequests without retry_after!!!")
         return True
     return False
 
