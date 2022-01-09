@@ -7,7 +7,7 @@ from retrying import retry
 
 from discord_bot.common.exceptions import TooManyRequests
 
-logger = logging.getLogger()
+logger = logging.getLogger("__main__." + "discord_bot")
 
 
 def check_exception(exception):
