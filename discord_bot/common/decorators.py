@@ -1,13 +1,11 @@
 import functools
 import inspect
-import logging
 from time import sleep
 
 from retrying import retry
 
+from discord_bot.common import logger
 from discord_bot.common.exceptions import TooManyRequests
-
-logger = logging.getLogger()
 
 
 def check_exception(exception):
